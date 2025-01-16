@@ -8,7 +8,7 @@
 <br/>
 <br/>
 
-<form:form modelAttribute="LocationDTO" method="post" action="/">
+<form:form modelAttribute="LocationDTO" method="post" action="/form">
 
     <label>Nome:</label>
     <form:input path="name"/>
@@ -38,14 +38,7 @@
     <br/>
     <br/>
 
-    <label>Data de Criação:</label>
-    <form:input type="date" path="dateCreation"/>
-    <form:errors path="dateCreation" cssStyle="color: red"/>
-
-    <br/>
-    <br/>
-
-    <form:button>Cadastrar</form:button>
+    <form:button type="submit">Cadastrar</form:button>
 
 </form:form>
 
