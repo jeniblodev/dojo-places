@@ -8,7 +8,7 @@
 <br/>
 <br/>
 
-<form:form modelAttribute="LocationDTO" method="post" action="/form">
+<form:form modelAttribute="locationDTO" method="post" action="/form">
 
     <label>Nome:</label>
     <form:input path="name"/>

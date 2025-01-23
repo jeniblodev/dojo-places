@@ -5,36 +5,34 @@ import jakarta.validation.constraints.*;
 import java.time.LocalDate;
 
 public class LocationDTO {
-    @NotNull
-    @Size(max = 100)
+    @NotNull (message = "O nome é obrigatório.")
+    @NotBlank (message = "O nome não pode estar em branco.")
+    @Size(max = 100, message = "O nome não pode ultrapassar 100 caracteres.")
     private String name;
 
-    @NotNull
+    @NotNull (message = "O código é obrigatório.")
+    @NotBlank (message = "O código é obrigatório.")
+    @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "O código deve conter letras e números.")
     private String code;
 
-    @NotNull
-    @Size(max = 100)
+    @NotNull (message = "O bairro é obrigatório.")
+    @NotBlank (message = "O bairro é obrigatório.")
+    @Size(max = 100, message = "O bairro não pode ultrapassar 100 caracteres.")
     private String address;
 
-    @NotNull
-    @Size(max = 100)
+    @NotNull (message = "A cidade é obrigatória.")
+    @NotBlank (message = "A cidade é obrigatória.")
+    @Size(max = 100, message = "A cidade não pode ultrapassar 100 caracteres.")
     private String city;
-
-    @NotNull
-    @PastOrPresent
-    private LocalDate dateCreation;
-
-    private LocalDate dateUpdate;
 
     public LocationDTO() {
     }
 
-    public LocationDTO(String name, String code, String address, String city, LocalDate dateCreation) {
+    public LocationDTO(String name, String code, String address, String city) {
         this.name = name;
         this.code = code;
         this.address = address;
         this.city = city;
-        this.dateCreation = dateCreation;
     }
 
     public String getName() {
@@ -69,19 +67,5 @@ public class LocationDTO {
         this.city = city;
     }
 
-    public LocalDate getDateCreation() {
-        return dateCreation;
-    }
-
-    public void setDateCreation(LocalDate dateCreation) {
-        this.dateCreation = dateCreation;
-    }
-
-    public LocalDate getDateUpdate() {
-        return dateUpdate;
-    }
-
-    public void setDateUpdate(LocalDate dateUpdate) {
-        this.dateUpdate = dateUpdate;
-    }
+    public Location toModel() { return new Location(name, code, address, city);}
 }
