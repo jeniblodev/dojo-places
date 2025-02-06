@@ -1,16 +1,36 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: jeniffer-bittencourt
-  Date: 23/01/2025
-  Time: 15:54
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Title</title>
-</head>
-<body>
 
-</body>
-</html>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
+<h1>Lista de Locais cadastrados</h1>
+
+<br/>
+<br/>
+    <table>
+        <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Código</th>
+            <th>Cidade</th>
+            <th>Estado</th>
+            <th>Data de criação</th>
+            <th>Data de atualização</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach items="${locationListDTO}" var="location">
+        <tr>
+            <td>${location.name}</td>
+            <td>${location.code}</td>
+            <td>${location.city}</td>
+            <td>${location.address}</td>
+            <td>${location.dateCreation}</td>
+            <td>${location.dateUpdate}</td>
+        </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+
+<script src="/assets/js/locais/buscarLocal.js"></script>
