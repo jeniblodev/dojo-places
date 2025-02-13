@@ -2,12 +2,12 @@ package br.com.alura.dojoplaces.model;
 
 import jakarta.validation.constraints.*;
 
-import java.time.LocalDate;
+public class LocationEditDTO {
 
-public class LocationDTO {
+    private Long id;
 
-    @NotNull (message = "O nome é obrigatório.")
-    @NotBlank (message = "O nome não pode estar em branco.")
+    @NotNull(message = "O nome é obrigatório.")
+    @NotBlank(message = "O nome não pode estar em branco.")
     @Size(max = 100, message = "O nome não pode ultrapassar 100 caracteres.")
     private String name;
 
@@ -26,10 +26,10 @@ public class LocationDTO {
     @Size(max = 100, message = "A cidade não pode ultrapassar 100 caracteres.")
     private String city;
 
-    public LocationDTO() {
+    public LocationEditDTO() {
     }
 
-    public LocationDTO(String name, String code, String address, String city) {
+    public LocationEditDTO(String name, String code, String address, String city) {
         this.name = name;
         this.code = code;
         this.address = address;
@@ -68,6 +68,13 @@ public class LocationDTO {
         this.city = city;
     }
 
-    public Location toModel() { return new Location(name, code, address, city);}
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Location toModel() { return new Location(name, code, address, city);}
 }

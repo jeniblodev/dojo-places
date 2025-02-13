@@ -9,4 +9,5 @@ import java.util.List;
 
 public interface LocationRepository extends JpaRepository<Location, Long> {
 
+    Location findByid(Long id);
 }

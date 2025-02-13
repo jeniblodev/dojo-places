@@ -22,7 +22,7 @@ public class DateFormatter {
             if (days == 0) {
                 return "Atualizado hoje.";
             } else if (days == 1) {
-                return "Atualizado há 1 dia";
+                return "Atualizado há 1 dia.";
             } else {
                 return "Atualizado há " + days + " dias.";
             }

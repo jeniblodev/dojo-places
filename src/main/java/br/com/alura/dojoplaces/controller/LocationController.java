@@ -51,6 +51,22 @@ public class LocationController {
         return "redirect:/form";
     }
 
+    @PostMapping("/form/edit")
+    public String editLocation(@Valid LocationEditDTO locationEditDTO, LocationDTO locationDTO, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return showFormLocation(locationDTO, model);
+        }
+
+        Location location = locationRepository.findByid(locationEditDTO.getId());
+
+//        location.edit()
+//
+//        Location location = locationEditDTO.toModel();
+
+        locationRepository.save(location);
+        return "redirect:/form";
+    }
+
 
 
 }
