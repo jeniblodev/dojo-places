@@ -77,4 +77,17 @@ public class Location {
         this.dateUpdate = dateUpdate;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public Location update(LocationEditDTO locationEditDTO) {
+        this.name = locationEditDTO.getName();
+        this.code = locationEditDTO.getCode();
+        this.address = locationEditDTO.getAddress();
+        this.city = locationEditDTO.getCity();
+        this.setDateUpdate(LocalDateTime.now());
+
+        return this;
+    }
 }

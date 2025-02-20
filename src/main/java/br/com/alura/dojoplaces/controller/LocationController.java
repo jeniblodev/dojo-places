@@ -51,20 +51,22 @@ public class LocationController {
         return "redirect:/form";
     }
 
-    @PostMapping("/form/edit")
-    public String editLocation(@Valid LocationEditDTO locationEditDTO, LocationDTO locationDTO, BindingResult bindingResult, Model model) {
-        if (bindingResult.hasErrors()) {
-            return showFormLocation(locationDTO, model);
+    @GetMapping("/form/update/{id}")
+    public String showLocationUpdateForm(@PathVariable Long id, Model model) {
+        var location = locationRepository.findById(id).orElseThrow();
+        model.addAttribute("locationUpdate", location);
+
+        return "/locationEditForm";
+    }
+
+    @PostMapping("/form/update/{id}")
+    public String updateLocation(@Valid LocationEditDTO locationEditDTO, @PathVariable Long id) {
+        var location = locationRepository.findById(id).orElseThrow();
+        if (!locationRepository.existsByCode(locationEditDTO.getCode()) || location.getCode().equals(locationEditDTO.getCode())) {
+            locationRepository.save(location.update(locationEditDTO));
         }
 
-        Location location = locationRepository.findByid(locationEditDTO.getId());
-
-//        location.edit()
-//
-//        Location location = locationEditDTO.toModel();
-
-        locationRepository.save(location);
-        return "redirect:/form";
+        return "/locationEditFormConfirm";
     }
 
 

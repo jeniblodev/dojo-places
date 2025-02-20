@@ -7,13 +7,10 @@
 <br/>
 <br/>
 
-<form:form modelAttribute="locationEditDTO" method="post" action="/form/edit">
-  <label>Id:</label>
-  <form:input path="id"/>
-  <form:errors path="id" cssStyle="color: red"/>
-
-  <br/>
-  <br/>
+<form:form modelAttribute="locationUpdate" method="post" action="/form/update/${locationUpdate.id}">
+<%--  <label>Id:</label>--%>
+<%--  <form:input path="id"/>--%>
+<%--  <form:errors path="id" cssStyle="color: red"/>--%>
 
   <label>Nome:</label>
   <form:input path="name"/>
@@ -43,7 +40,7 @@
   <br/>
   <br/>
 
-  <form:button type="submit">Cadastrar</form:button>
+  <form:button type="submit">Editar</form:button>
 
 </form:form>
 
