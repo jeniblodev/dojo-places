@@ -36,6 +36,15 @@ public class LocationEditDTO {
         this.city = city;
     }
 
+    public LocationEditDTO(Location location) {
+        this.id = location.getId();
+        this.name = location.getName();
+        this.code = location.getCode();
+        this.address = location.getAddress();
+        this.city = location.getCity();
+    }
+
+
     public String getName() {
         return name;
     }

@@ -36,6 +36,7 @@ public class LocationDTO {
         this.city = city;
     }
 
+
     public String getName() {
         return name;
     }

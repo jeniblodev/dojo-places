@@ -11,4 +11,5 @@ public interface LocationRepository extends JpaRepository<Location, Long> {
 
     Location findByid(Long id);
     boolean existsByCode(String code);
+    boolean existsByCodeAndIdNot(String code, Long id);
 }

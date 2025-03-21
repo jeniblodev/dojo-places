@@ -5,11 +5,16 @@ package br.com.alura.dojoplaces.controller;
 
 import br.com.alura.dojoplaces.model.*;
 import br.com.alura.dojoplaces.repository.LocationRepository;
+import br.com.alura.dojoplaces.validator.CreateLocationFormValidator;
+import br.com.alura.dojoplaces.validator.UpdateLocationFormValidator;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.DataBinder;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,8 +26,13 @@ public class LocationController {
     @Autowired
     private final LocationRepository locationRepository;
 
+    private final CreateLocationFormValidator createLocationFormValidator;
+    private final UpdateLocationFormValidator updateLocationFormValidator;
+
     public LocationController(LocationRepository locationRepository) {
         this.locationRepository = locationRepository;
+        this.createLocationFormValidator = new CreateLocationFormValidator(locationRepository);
+        this.updateLocationFormValidator = new UpdateLocationFormValidator(locationRepository);
     }
 
     @GetMapping("/form")
@@ -39,6 +49,7 @@ public class LocationController {
         return "/locationList";
     }
 
+    @Transactional
     @PostMapping("/form")
     public String createLocation(@Valid LocationDTO locationDTO, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
@@ -52,23 +63,36 @@ public class LocationController {
     }
 
     @GetMapping("/form/update/{id}")
-    public String showLocationUpdateForm(@PathVariable Long id, Model model) {
+    public String showLocationUpdateForm(@PathVariable Long id, Model model, LocationEditDTO locationEditDTO) {
         var location = locationRepository.findById(id).orElseThrow();
-        model.addAttribute("locationUpdate", location);
+        model.addAttribute("locationUpdate", new LocationEditDTO(location));
 
-        return "/locationEditForm";
+        return "locationEditForm";
     }
 
+    @Transactional
     @PostMapping("/form/update/{id}")
-    public String updateLocation(@Valid LocationEditDTO locationEditDTO, @PathVariable Long id) {
-        var location = locationRepository.findById(id).orElseThrow();
-        if (!locationRepository.existsByCode(locationEditDTO.getCode()) || location.getCode().equals(locationEditDTO.getCode())) {
-            locationRepository.save(location.update(locationEditDTO));
+    public String updateLocation(@ModelAttribute("locationUpdate") @Valid LocationEditDTO locationEditDTO, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("locationUpdate", locationEditDTO);
+            return "locationEditForm";
         }
+
+        var location = locationRepository.findById(locationEditDTO.getId()).orElseThrow();
+        locationRepository.save(location.update(locationEditDTO));
 
         return "/locationEditFormConfirm";
     }
 
+    @InitBinder("locationDTO")
+    public void initBinderCreateLocation(WebDataBinder binder) {
+        binder.setValidator(createLocationFormValidator);
+    }
+
+    @InitBinder("locationUpdate")
+    public void initBinderUpdateLocation(WebDataBinder binder) {
+        binder.addValidators(updateLocationFormValidator);
+    }
 
 
 }
