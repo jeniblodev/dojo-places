@@ -3,6 +3,7 @@ package br.com.alura.dojoplaces.model;
 import br.com.alura.dojoplaces.util.DateFormatter;
 
 public class LocationListDTO {
+    private Long id;
     private String name;
     private String code;
     private String address;
@@ -11,6 +12,7 @@ public class LocationListDTO {
     private String dateUpdate;
 
     public LocationListDTO(Location location) {
+        this.id = location.getId();
         this.name = location.getName();
         this.code = location.getCode();
         this.address = location.getAddress();
@@ -41,6 +43,10 @@ public class LocationListDTO {
 
     public String getName() {
         return name;
+    }
+
+    public Long getId() {
+        return id;
     }
 
 

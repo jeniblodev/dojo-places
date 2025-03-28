@@ -6,23 +6,15 @@ public class LocationEditDTO {
 
     private Long id;
 
-    @NotNull(message = "O nome é obrigatório.")
-    @NotBlank(message = "O nome não pode estar em branco.")
     @Size(max = 100, message = "O nome não pode ultrapassar 100 caracteres.")
     private String name;
 
-    @NotNull (message = "O código é obrigatório.")
-    @NotBlank (message = "O código é obrigatório.")
     @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "O código deve conter letras e números.")
     private String code;
 
-    @NotNull (message = "O bairro é obrigatório.")
-    @NotBlank (message = "O bairro é obrigatório.")
     @Size(max = 100, message = "O bairro não pode ultrapassar 100 caracteres.")
     private String address;
 
-    @NotNull (message = "A cidade é obrigatória.")
-    @NotBlank (message = "A cidade é obrigatória.")
     @Size(max = 100, message = "A cidade não pode ultrapassar 100 caracteres.")
     private String city;
 

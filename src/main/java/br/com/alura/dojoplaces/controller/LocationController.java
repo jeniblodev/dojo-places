@@ -10,6 +10,7 @@ import br.com.alura.dojoplaces.validator.UpdateLocationFormValidator;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -82,6 +83,15 @@ public class LocationController {
         locationRepository.save(location.update(locationEditDTO));
 
         return "/locationEditFormConfirm";
+    }
+
+    @Transactional
+    @PostMapping("/delete/{id}")
+    public String deleteLocation(@PathVariable Long id) {
+        Location location = locationRepository.findById(id).orElseThrow();
+        locationRepository.delete(location);
+
+        return "redirect:/list";
     }
 
     @InitBinder("locationDTO")

@@ -28,6 +28,14 @@
             <td>${location.address}</td>
             <td>${location.dateCreation}</td>
             <td>${location.dateUpdate}</td>
+            <td>
+                <form action="/form/update/${location.id}" method="post">
+                    <button type="submit">Alterar</button>
+                </form>
+                <form action="/delete/${location.id}" method="post">
+                    <button type="submit" onclick="return confirm('Deseja remover o local ${location.name}?')">Remover</button>
+                </form>
+            </td>
         </tr>
         </c:forEach>
         </tbody>
